@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soul Path Discovery - Lesson 1</title>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Oswald', sans-serif;
+            background: #f3f3f3;
+            min-height: 100vh;
+            color: #4c3631;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: #4c3631;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+
+        .tagline {
+            color: #f08d40;
+            font-size: 1.1rem;
+            font-weight: 300;
+            margin-bottom: 20px;
+        }
+
+        .main-title {
+            font-size: 2.2rem;
+            color: #4c3631;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #8cc084;
+            font-weight: 300;
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.95);
+            margin-bottom: 30px;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            transform: translateY(20px);
+            opacity: 0;
+            animation: slideUp 0.8s forwards;
+        }
+
+        .section:nth-child(2) { animation-delay: 0.2s; }
+        .section:nth-child(3) { animation-delay: 0.4s; }
+        .section:nth-child(4) { animation-delay: 0.6s; }
+
+        @keyframes slideUp {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .section h2 {
+            font-size: 1.8rem;
+            color: #4c3631;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .section p {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: #4c3631;
+            margin-bottom: 15px;
+            font-weight: 300;
+        }
+
+        .sacred-intention {
+            background: linear-gradient(135deg, #9197ae 0%, #9a8c98 100%);
+            color: white;
+            text-align: center;
+            padding: 40px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+
+        .sacred-intention h3 {
+            font-size: 1.6rem;
+            margin-bottom: 20px;
+            font-weight: 400;
+        }
+
+        .breathing-guide {
+            margin: 30px 0;
+        }
+
+        .breath-circle {
+            width: 150px;
+            height: 150px;
+            border: 4px solid rgba(255,255,255,0.7);
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            font-weight: 400;
+            transition: all 1s ease-in-out;
+            cursor: pointer;
+            position: relative;
+            background: rgba(255,255,255,0.1);
+        }
+
+        .breath-circle:hover {
+            border-color: #f08d40;
+        }
+
+        .breath-circle.inhaling {
+            transform: scale(1.4);
+            border-color: #8cc084;
+            background: rgba(140, 192, 132, 0.2);
+            box-shadow: 0 0 40px rgba(140, 192, 132, 0.4);
+        }
+
+        .breath-circle.exhaling {
+            transform: scale(0.8);
+            border-color: #f08d40;
+            background: rgba(240, 141, 64, 0.2);
+            box-shadow: 0 0 20px rgba(240, 141, 64, 0.3);
+        }
+
+        .breath-circle.completed {
+            border-color: #9197ae;
+            background: rgba(145, 151, 174, 0.3);
+            transform: scale(1);
+        }
+
+        .intention-input {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1rem;
+            background: rgba(255,255,255,0.9);
+            color: #4c3631;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .intention-input::placeholder {
+            color: #8cc084;
+        }
+
+        .calculator-section {
+            background: linear-gradient(135deg, #f08d40 0%, #4c3631 100%);
+            color: white;
+        }
+
+        .birth-date-inputs {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .date-input {
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.1rem;
+            text-align: center;
+            background: rgba(255,255,255,0.9);
+            color: #4c3631;
+            font-weight: 500;
+        }
+
+        .calculate-btn {
+            background: #8cc084;
+            color: white;
+            border: none;
+            padding: 20px 40px;
+            font-size: 1.3rem;
+            font-family: 'Oswald', sans-serif;
+            font-weight: 500;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: block;
+            margin: 30px auto;
+            transform: scale(1);
+        }
+
+        .calculate-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(140, 192, 132, 0.4);
+        }
+
+        .calculate-btn:active {
+            transform: scale(0.98);
+        }
+
+        .result-container {
+            display: none;
+            text-align: center;
+            padding: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            margin-top: 30px;
+            animation: resultReveal 1s ease-out;
+        }
+
+        @keyframes resultReveal {
+            from {
+                opacity: 0;
+                transform: scale(0.8) rotateY(90deg);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) rotateY(0deg);
+            }
+        }
+
+        .path-number {
+            font-size: 4rem;
+            font-weight: 600;
+            color: #f08d40;
+            margin: 20px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .path-name {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            font-weight: 400;
+        }
+
+        .path-description {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        .continue-btn {
+            background: #f08d40;
+            color: white;
+            border: none;
+            padding: 18px 35px;
+            font-size: 1.2rem;
+            font-family: 'Oswald', sans-serif;
+            font-weight: 500;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .continue-btn:hover {
+            background: #e67a30;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(230, 122, 48, 0.4);
+        }
+
+        .sacred-cross {
+            margin: 30px 0;
+            display: none;
+        }
+
+        .cross-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-rows: 1fr 1fr 1fr;
+            gap: 5px;
+            max-width: 200px;
+            margin: 0 auto;
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 15px;
+        }
+
+        .cross-position {
+            padding: 15px;
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: 500;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .cross-position.testa { grid-column: 2; grid-row: 1; background: rgba(240, 141, 64, 0.3); }
+        .cross-position.esquerda { grid-column: 1; grid-row: 2; background: rgba(157, 151, 174, 0.3); }
+        .cross-position.centro { grid-column: 2; grid-row: 2; background: rgba(140, 192, 132, 0.3); }
+        .cross-position.direita { grid-column: 3; grid-row: 2; background: rgba(154, 140, 152, 0.3); }
+        .cross-position.nuca { grid-column: 2; grid-row: 3; background: rgba(76, 54, 49, 0.3); }
+
+        .ready-btn {
+            background: #9197ae;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            font-family: 'Oswald', sans-serif;
+            font-weight: 400;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: block;
+            margin: 20px auto;
+        }
+
+        .ready-btn:hover {
+            background: #7d84a1;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .birth-date-inputs {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+            
+            .logo {
+                font-size: 2rem;
+            }
+            
+            .main-title {
+                font-size: 1.8rem;
+            }
+            
+            .path-number {
+                font-size: 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Welcome Message -->
+        <div class="header">
+            <p class="subtitle">Welcome to your Soul Path Discovery journey. Let's begin by creating the perfect space for this sacred moment of self-discovery.</p>
+        </div>
+
+        <!-- Sacred Space Setting -->
+        <div class="section sacred-intention">
+            <h3>🌟 Create Your Sacred Space</h3>
+            <p>Before we calculate your soul path, let's take a moment to center yourself and set a clear intention for this discovery.</p>
+            
+            <div class="breathing-guide">
+                <p style="margin-bottom: 20px; font-size: 1rem;">Follow the guided breathing - the circle will show you when to inhale and exhale:</p>
+                
+                <div class="breath-circle" id="breathCircle" onclick="startGuidedBreathing()">
+                    <span id="breathInstruction">Start Breathing</span>
+                </div>
+                <p id="breathProgress">Click above to begin 3 centering breaths</p>
+            </div>
+
+            <input type="text" class="intention-input" placeholder="What do you hope to discover about yourself today?" id="intentionInput" style="display: none;">
+            
+            <button class="ready-btn" onclick="showCalculator()" id="readyBtn" style="display: none;">
+                I'm ready to discover my path ✨
+            </button>
+        </div>
+
+        <!-- Calculator Section -->
+        <div class="section calculator-section" id="calculatorSection" style="display: none;">
+            <h2>🔢 Calculate Your Soul Path</h2>
+            <p>Using the ancient sacred cross method from Afro-Brazilian Ifá tradition, we'll discover the Odu that governs your soul's journey.</p>
+            
+            <p style="margin: 20px 0; font-size: 1rem; opacity: 0.9;">Enter your birth date to reveal the cosmic pattern that influences your life path:</p>
+
+            <div class="birth-date-inputs">
+                <input type="number" class="date-input" placeholder="Day" min="1" max="31" id="dayInput">
+                <input type="number" class="date-input" placeholder="Month" min="1" max="12" id="monthInput">
+                <input type="number" class="date-input" placeholder="Year" min="1900" max="2025" id="yearInput">
+            </div>
+
+            <button class="calculate-btn" onclick="calculatePath()">
+                Reveal My Soul Path 🔮
+            </button>
+
+            <div class="sacred-cross" id="sacredCross">
+                <h3 style="text-align: center; margin-bottom: 20px;">Your Sacred Cross</h3>
+                <div class="cross-container">
+                    <div class="cross-position testa" id="testa"></div>
+                    <div class="cross-position esquerda" id="esquerda"></div>
+                    <div class="cross-position centro" id="centro"></div>
+                    <div class="cross-position direita" id="direita"></div>
+                    <div class="cross-position nuca" id="nuca"></div>
+                </div>
+                <p style="text-align: center; margin-top: 15px; font-size: 0.9rem; opacity: 0.8;">
+                    Your soul path number is the center position
+                </p>
+            </div>
+
+            <div class="result-container" id="resultContainer">
+                <h3>Your Soul Path Is:</h3>
+                <div class="path-number" id="pathNumber"></div>
+                <div class="path-name" id="pathName"></div>
+                <div class="path-description" id="pathDescription"></div>
+                <a href="#" class="continue-btn" onclick="goToProfile()">
+                    Explore Your Complete Profile →
+                </a>
+            </div>
+        </div>
+
+        <!-- Information Section -->
+        <div class="section">
+            <h2>🌍 About This Ancient Wisdom</h2>
+            <p>The Odu system comes from the sacred Ifá tradition of the Yoruba people, brought to Brazil and evolved through centuries of spiritual practice. Each of the 16 paths represents a unique archetypal pattern that influences how your soul navigates life.</p>
+            <p>Your birth date contains the mathematical signature of your soul's chosen path. Through the sacred cross calculation, we reveal not just your main path, but the complete energetic blueprint of your consciousness.</p>
+            <p><strong>This isn't fortune telling</strong> – it's a sophisticated system for understanding the patterns that shape your life, helping you recognize why certain themes keep appearing and how to align with your authentic nature.</p>
+        </div>
+    </div>
+
+    <script>
+        // Sacred Space Functions
+        let breathCount = 0;
+        let isBreathing = false;
+
+        function startGuidedBreathing() {
+            if (isBreathing) return;
+            
+            isBreathing = true;
+            breathCount = 0;
+            
+            const circle = document.getElementById('breathCircle');
+            const instruction = document.getElementById('breathInstruction');
+            const progress = document.getElementById('breathProgress');
+            
+            circle.style.cursor = 'default';
+            
+            function doBreathe() {
+                if (breathCount >= 3) {
+                    // Breathing complete
+                    circle.classList.add('completed');
+                    instruction.textContent = 'Complete ✨';
+                    progress.textContent = 'Sacred space created. Now set your intention below:';
+                    
+                    setTimeout(() => {
+                        document.getElementById('intentionInput').style.display = 'block';
+                        document.getElementById('intentionInput').focus();
+                    }, 1000);
+                    return;
+                }
+                
+                breathCount++;
+                progress.textContent = `Breath ${breathCount} of 3`;
+                
+                // Inhale phase
+                circle.classList.remove('exhaling');
+                circle.classList.add('inhaling');
+                instruction.textContent = 'Inhale...';
+                
+                setTimeout(() => {
+                    // Hold phase
+                    instruction.textContent = 'Hold...';
+                    
+                    setTimeout(() => {
+                        // Exhale phase
+                        circle.classList.remove('inhaling');
+                        circle.classList.add('exhaling');
+                        instruction.textContent = 'Exhale...';
+                        
+                        setTimeout(() => {
+                            // Reset for next breath
+                            circle.classList.remove('exhaling');
+                            
+                            if (breathCount < 3) {
+                                instruction.textContent = 'Ready...';
+                                setTimeout(doBreathe, 1000);
+                            } else {
+                                doBreathe(); // Complete the sequence
+                            }
+                        }, 4000); // 4 second exhale
+                    }, 1000); // 1 second hold
+                }, 4000); // 4 second inhale
+            }
+            
+            doBreathe();
+        }
+
+        // Monitor intention input
+        document.getElementById('intentionInput').addEventListener('input', function() {
+            if (this.value.length > 10 && breathCount >= 3) {
+                document.getElementById('readyBtn').style.display = 'block';
+            }
+        });
+
+        function showCalculator() {
+            document.getElementById('calculatorSection').style.display = 'block';
+            document.getElementById('calculatorSection').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Path definitions (authentic Odu information)
+        const pathDefinitions = {
+            1: { name: "OKANRAN", description: "The Dynamic Messenger - You came to bridge worlds through passionate communication and transformation." },
+            2: { name: "EJIOKÔ", description: "The Abundant Nurturer - You came to create abundance and nurture growth in yourself and others." },
+            3: { name: "ETAOGUNDÁ", description: "The Strategic Warrior - You came to overcome obstacles through courage and strategic thinking." },
+            4: { name: "IOROSSUN", description: "The Wise Healer - You came to heal and guide others through deep spiritual wisdom." },
+            5: { name: "OSHE MEJI", description: "The Creative Force - You came to create beauty and transform the world through your unique gifts." },
+            6: { name: "OBARÁ MEJI", description: "The Heart-Centered Leader - You came to lead through love and emotional intelligence." },
+            7: { name: "ODI MEJI", description: "The Intelligent Transformer - You came to transform obstacles through higher wisdom." },
+            8: { name: "EJIONILE", description: "The Divine Pioneer - You came to initiate new beginnings and lead by example." },
+            9: { name: "OSA MEJI", description: "The Mystical Communicator - You came to bridge the spiritual and material worlds." },
+            10: { name: "OFUN MEJI", description: "The Sacred Teacher - You came to share ancient wisdom and guide spiritual development." },
+            11: { name: "OWONRIN MEJI", description: "The Revolutionary Changemaker - You came to transform systems and create positive change." },
+            12: { name: "EJILAXEBORÁ", description: "The Justice Seeker - You came to bring balance and fairness to the world." },
+            13: { name: "EJIOLIGIBAN", description: "The Death-Rebirth Master - You came to guide major transformations and new beginnings." },
+            14: { name: "IKÁ MEJI", description: "The Strategic Conqueror - You came to overcome challenges through determination and strategy." },
+            15: { name: "OBEOGUNDÁ", description: "The Protective Warrior - You came to protect and defend what is sacred and just." },
+            16: { name: "ALOÁRIA", description: "The Universal Blessing - You came to share universal love and wisdom with all beings." }
+        };
+
+        function calculatePath() {
+            const day = parseInt(document.getElementById('dayInput').value);
+            const month = parseInt(document.getElementById('monthInput').value);
+            const year = parseInt(document.getElementById('yearInput').value);
+
+            if (!day || !month || !year) {
+                alert('Please enter your complete birth date');
+                return;
+            }
+
+            // Sacred Cross Calculation (authentic method)
+            const dayStr = day.toString().padStart(2, '0');
+            const monthStr = month.toString().padStart(2, '0');
+            const yearStr = year.toString();
+
+            // Cross positions
+            const testa = parseInt(dayStr[0]) + parseInt(dayStr[1]); // Day
+            const nuca = parseInt(monthStr[0]) + parseInt(monthStr[1]); // Month
+            const direita = parseInt(yearStr[0]) + parseInt(yearStr[1]); // First two digits of year
+            const esquerda = parseInt(yearStr[2]) + parseInt(yearStr[3]); // Last two digits of year
+
+            // Calculate center (soul path)
+            let centro = testa + nuca + direita + esquerda;
+            while (centro > 16) {
+                centro = Math.floor(centro / 10) + (centro % 10);
+            }
+            if (centro === 0) centro = 16;
+
+            // Display sacred cross
+            document.getElementById('sacredCross').style.display = 'block';
+            document.getElementById('testa').textContent = testa > 16 ? reduceToSingle(testa) : testa;
+            document.getElementById('nuca').textContent = nuca > 16 ? reduceToSingle(nuca) : nuca;
+            document.getElementById('direita').textContent = direita > 16 ? reduceToSingle(direita) : direita;
+            document.getElementById('esquerda').textContent = esquerda > 16 ? reduceToSingle(esquerda) : esquerda;
+            document.getElementById('centro').textContent = centro;
+
+            // Show result
+            setTimeout(() => {
+                const pathInfo = pathDefinitions[centro];
+                document.getElementById('pathNumber').textContent = centro;
+                document.getElementById('pathName').textContent = pathInfo.name;
+                document.getElementById('pathDescription').textContent = pathInfo.description;
+                document.getElementById('resultContainer').style.display = 'block';
+                
+                // Store result for next lesson
+                localStorage.setItem('soulPathNumber', centro);
+                localStorage.setItem('soulPathName', pathInfo.name);
+            }, 1000);
+        }
+
+        function reduceToSingle(num) {
+            while (num > 16) {
+                num = Math.floor(num / 10) + (num % 10);
+            }
+            return num;
+        }
+
+        function goToProfile() {
+            // This would navigate to Lesson 2 in your Squarespace course
+            alert('In your course, this would take you to Lesson 2: Your Complete Soul Path Profile where you can explore your specific Odu in detail!');
+        }
+    </script>
+</body>
+</html>
