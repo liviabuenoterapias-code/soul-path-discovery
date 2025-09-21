@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sacred Space Creator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Oswald', sans-serif;
+            background: #f3f3f3;
+            color: #4c3631;
+            padding: 40px 20px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .sacred-container {
+            background: linear-gradient(135deg, #9197ae 0%, #9a8c98 100%);
+            color: white;
+            text-align: center;
+            padding: 50px 40px;
+            border-radius: 20px;
+            max-width: 500px;
+            width: 100%;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .sacred-title {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .sacred-subtitle {
+            font-size: 1rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+            line-height: 1.5;
+            font-weight: 300;
+        }
+
+        .breathing-guide {
+            margin: 40px 0;
+        }
+
+        .breathing-instruction {
+            font-size: 1rem;
+            margin-bottom: 25px;
+            opacity: 0.9;
+        }
+
+        .breath-circle {
+            width: 150px;
+            height: 150px;
+            border: 4px solid rgba(255,255,255,0.7);
+            border-radius: 50%;
+            margin: 0 auto 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            font-weight: 400;
+            transition: all 1s ease-in-out;
+            cursor: pointer;
+            position: relative;
+            background: rgba(255,255,255,0.1);
+        }
+
+        .breath-circle:hover {
+            border-color: #f08d40;
+            background: rgba(240, 141, 64, 0.1);
+        }
+
+        .breath-circle.inhaling {
+            transform: scale(1.4);
+            border-color: #8cc084;
+            background: rgba(140, 192, 132, 0.2);
+            box-shadow: 0 0 40px rgba(140, 192, 132, 0.4);
+        }
+
+        .breath-circle.exhaling {
+            transform: scale(0.8);
+            border-color: #f08d40;
+            background: rgba(240, 141, 64, 0.2);
+            box-shadow: 0 0 20px rgba(240, 141, 64, 0.3);
+        }
+
+        .breath-circle.completed {
+            border-color: rgba(255,255,255,0.9);
+            background: rgba(255,255,255,0.2);
+            transform: scale(1);
+            box-shadow: 0 0 30px rgba(255,255,255,0.3);
+        }
+
+        .breath-progress {
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            opacity: 0.8;
+            min-height: 24px;
+        }
+
+        .intention-section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease;
+            margin-top: 30px;
+        }
+
+        .intention-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .intention-input {
+            width: 100%;
+            padding: 18px;
+            border: none;
+            border-radius: 12px;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1rem;
+            background: rgba(255,255,255,0.95);
+            color: #4c3631;
+            text-align: center;
+            margin: 20px 0;
+            font-weight: 400;
+        }
+
+        .intention-input::placeholder {
+            color: #8cc084;
+            font-weight: 300;
+        }
+
+        .intention-input:focus {
+            outline: none;
+            background: white;
+            box-shadow: 0 0 20px rgba(255,255,255,0.3);
+        }
+
+        .ready-btn {
+            background: rgba(255,255,255,0.9);
+            color: #4c3631;
+            border: none;
+            padding: 18px 35px;
+            font-size: 1.1rem;
+            font-family: 'Oswald', sans-serif;
+            font-weight: 500;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(10px);
+            margin-top: 15px;
+        }
+
+        .ready-btn.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .ready-btn:hover {
+            background: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255,255,255,0.3);
+        }
+
+        .sacred-complete {
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all 0.8s ease;
+            margin-top: 20px;
+        }
+
+        .sacred-complete.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .completion-message {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            font-weight: 400;
+        }
+
+        .continue-message {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            font-weight: 300;
+        }
+
+        @media (max-width: 600px) {
+            .sacred-container {
+                padding: 30px 25px;
+                margin: 0 10px;
+            }
+            
+            .sacred-title {
+                font-size: 1.5rem;
+            }
+            
+            .breath-circle {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .breath-circle.inhaling {
+                transform: scale(1.3);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="sacred-container">
+        <h2 class="sacred-title">🌟 Create Your Sacred Space</h2>
+        <p class="sacred-subtitle">Before we calculate your soul path, let's take a moment to center yourself and set a clear intention for this discovery.</p>
+        
+        <div class="breathing-guide">
+            <p class="breathing-instruction">Follow the guided breathing - the circle will show you when to inhale and exhale:</p>
+            
+            <div class="breath-circle" id="breathCircle" onclick="startGuidedBreathing()">
+                <span id="breathInstruction">Start Breathing</span>
+            </div>
+            
+            <p class="breath-progress" id="breathProgress">Click above to begin 3 centering breaths</p>
+        </div>
+
+        <div class="intention-section" id="intentionSection">
+            <input type="text" 
+                   class="intention-input" 
+                   placeholder="What do you hope to discover about yourself today?" 
+                   id="intentionInput"
+                   maxlength="100">
+            
+            <button class="ready-btn" id="readyBtn" onclick="completePreparation()">
+                I'm ready to discover my path ✨
+            </button>
+        </div>
+
+        <div class="sacred-complete" id="sacredComplete">
+            <p class="completion-message">Sacred space created and intention set! ✨</p>
+            <p class="continue-message">Continue in the lesson below to calculate your soul path</p>
+        </div>
+    </div>
+
+    <script>
+        let breathCount = 0;
+        let isBreathing = false;
+
+        function startGuidedBreathing() {
+            if (isBreathing) return;
+            
+            isBreathing = true;
+            breathCount = 0;
+            
+            const circle = document.getElementById('breathCircle');
+            const instruction = document.getElementById('breathInstruction');
+            const progress = document.getElementById('breathProgress');
+            
+            circle.style.cursor = 'default';
+            circle.onclick = null;
+            
+            function doBreathe() {
+                if (breathCount >= 3) {
+                    // Breathing complete
+                    circle.classList.add('completed');
+                    instruction.textContent = 'Complete ✨';
+                    progress.textContent = 'Sacred space created. Now set your intention below:';
+                    
+                    // Show intention section
+                    setTimeout(() => {
+                        const intentionSection = document.getElementById('intentionSection');
+                        intentionSection.classList.add('visible');
+                        
+                        setTimeout(() => {
+                            document.getElementById('intentionInput').focus();
+                        }, 500);
+                    }, 1000);
+                    return;
+                }
+                
+                breathCount++;
+                progress.textContent = `Breath ${breathCount} of 3`;
+                
+                // Inhale phase (4 seconds)
+                circle.classList.remove('exhaling');
+                circle.classList.add('inhaling');
+                instruction.textContent = 'Inhale...';
+                
+                setTimeout(() => {
+                    // Hold phase (1 second)
+                    instruction.textContent = 'Hold...';
+                    
+                    setTimeout(() => {
+                        // Exhale phase (4 seconds)
+                        circle.classList.remove('inhaling');
+                        circle.classList.add('exhaling');
+                        instruction.textContent = 'Exhale...';
+                        
+                        setTimeout(() => {
+                            // Reset for next breath (1 second pause)
+                            circle.classList.remove('exhaling');
+                            
+                            if (breathCount < 3) {
+                                instruction.textContent = 'Ready...';
+                                setTimeout(doBreathe, 1000);
+                            } else {
+                                doBreathe(); // Complete the sequence
+                            }
+                        }, 4000); // 4 second exhale
+                    }, 1000); // 1 second hold
+                }, 4000); // 4 second inhale
+            }
+            
+            doBreathe();
+        }
+
+        // Monitor intention input and show ready button
+        document.getElementById('intentionInput').addEventListener('input', function() {
+            const readyBtn = document.getElementById('readyBtn');
+            if (this.value.trim().length > 5) {
+                readyBtn.classList.add('visible');
+            } else {
+                readyBtn.classList.remove('visible');
+            }
+        });
+
+        function completePreparation() {
+            const intention = document.getElementById('intentionInput').value.trim();
+            
+            if (intention.length < 5) {
+                alert('Please share what you hope to discover about yourself');
+                return;
+            }
+
+            // Store intention for potential use later
+            localStorage.setItem('soulPathIntention', intention);
+            
+            // Hide intention section and show completion
+            document.getElementById('intentionSection').style.display = 'none';
+            document.getElementById('sacredComplete').classList.add('visible');
+            
+            // Send message to parent window if embedded
+            if (window.parent !== window) {
+                window.parent.postMessage({
+                    type: 'sacredSpaceComplete',
+                    intention: intention
+                }, '*');
+            }
+        }
+
+        // Handle Enter key in intention input
+        document.getElementById('intentionInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                completePreparation();
+            }
+        });
+    </script>
+</body>
+</html>
