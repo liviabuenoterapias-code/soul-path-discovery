@@ -14,9 +14,10 @@
 
         body {
             font-family: 'Oswald', sans-serif;
-            background: #f3f3f3;
+            background: white;
             color: #4c3631;
-            padding: 20px 15px;
+            padding: 0;
+            margin: 0;
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -24,63 +25,62 @@
         }
 
         .sacred-container {
-            background: linear-gradient(135deg, #9197ae 0%, #9a8c98 100%);
-            color: white;
+            background: white;
+            color: #4c3631;
             text-align: center;
             padding: 30px 25px;
-            border-radius: 20px;
-            max-width: 450px;
             width: 100%;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
 
         .sacred-title {
             font-size: 1.8rem;
             margin-bottom: 15px;
             font-weight: 500;
+            color: #4c3631;
         }
 
         .sacred-subtitle {
-            font-size: 1rem;
+            font-size: 1.2rem;
             margin-bottom: 30px;
-            opacity: 0.9;
-            line-height: 1.5;
             font-weight: 300;
-        }
-
-        .breathing-guide {
-            margin: 20px 0;
-            padding: 10px 0;
+            color: #8cc084;
         }
 
         .breathing-instruction {
             font-size: 1rem;
             margin-bottom: 15px;
-            opacity: 0.9;
+            opacity: 0.8;
+            color: #4c3631;
         }
 
         .breathing-explanation {
             font-size: 0.85rem;
-            margin-bottom: 15px;
-            opacity: 0.8;
+            margin-bottom: 30px;
+            opacity: 0.7;
             line-height: 1.4;
+            color: #4c3631;
         }
 
         .breath-circle {
             width: 100px;
             height: 100px;
-            border: 4px solid rgba(255,255,255,0.7);
+            border: 4px solid #9197ae;
             border-radius: 50%;
-            margin: 30px auto 20px;
+            margin: 30px auto;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 0.9rem;
             font-weight: 400;
-            transition: all 0.5s ease-in-out;
+            transition: all 0.3s ease;
             cursor: pointer;
-            position: relative;
-            background: rgba(255,255,255,0.1);
+            background: rgba(145, 151, 174, 0.1);
+            color: #4c3631;
         }
 
         .breath-circle:hover {
@@ -89,72 +89,83 @@
         }
 
         .breath-circle.inhaling {
-            transform: scale(1.25);
+            width: 125px;
+            height: 125px;
             border-color: #8cc084;
             background: rgba(140, 192, 132, 0.2);
             box-shadow: 0 0 40px rgba(140, 192, 132, 0.4);
-            transition: all 4s ease-in-out;
+            transition: width 4s ease-in-out, height 4s ease-in-out, border-color 4s ease-in-out, background 4s ease-in-out, box-shadow 4s ease-in-out;
         }
 
         .breath-circle.exhaling {
-            transform: scale(0.75);
+            width: 75px;
+            height: 75px;
             border-color: #f08d40;
             background: rgba(240, 141, 64, 0.2);
             box-shadow: 0 0 20px rgba(240, 141, 64, 0.3);
-            transition: all 6s ease-in-out;
+            transition: width 6s ease-in-out, height 6s ease-in-out, border-color 6s ease-in-out, background 6s ease-in-out, box-shadow 6s ease-in-out;
         }
 
         .breath-circle.completed {
-            border-color: rgba(255,255,255,0.9);
-            background: rgba(255,255,255,0.2);
+            border-color: #8cc084;
+            background: rgba(140, 192, 132, 0.2);
             transform: scale(1);
-            box-shadow: 0 0 30px rgba(255,255,255,0.3);
-            transition: all 1s ease-in-out;
+            box-shadow: 0 0 30px rgba(140, 192, 132, 0.3);
         }
 
         .breath-progress {
             font-size: 0.95rem;
-            margin-bottom: 20px;
-            opacity: 0.8;
-            min-height: 24px;
-        }
-
-        .intention-section {
-            display: none;
+            margin: 20px 0;
+            opacity: 0.7;
+            color: #4c3631;
         }
 
         .sacred-complete {
             opacity: 0;
-            transform: scale(0.8);
             transition: all 0.8s ease;
-            margin-top: 15px;
+            margin-top: 20px;
         }
 
         .sacred-complete.visible {
             opacity: 1;
-            transform: scale(1);
         }
 
         .completion-message {
             font-size: 1rem;
             margin-bottom: 10px;
             font-weight: 400;
+            color: #8cc084;
         }
 
         .continue-message {
             font-size: 0.85rem;
-            opacity: 0.8;
+            opacity: 0.7;
             font-weight: 300;
+            color: #4c3631;
+            margin-bottom: 15px;
+        }
+
+        .restart-btn {
+            background: #9197ae;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 0.9rem;
+            font-family: 'Oswald', sans-serif;
+            font-weight: 400;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .restart-btn:hover {
+            background: #7d84a1;
+            transform: translateY(-1px);
         }
 
         @media (max-width: 600px) {
-            body {
-                padding: 15px 10px;
-            }
-            
             .sacred-container {
                 padding: 25px 20px;
-                margin: 0 5px;
             }
             
             .sacred-title {
@@ -169,10 +180,6 @@
             
             .breath-circle.inhaling {
                 transform: scale(1.2);
-            }
-            
-            .breathing-instruction, .breathing-explanation {
-                font-size: 0.9rem;
             }
         }
 
@@ -198,102 +205,133 @@
         <h2 class="sacred-title">🌟 Create Your Sacred Space</h2>
         <p class="sacred-subtitle">Take a moment to center yourself before we begin your soul path discovery.</p>
         
-        <div class="breathing-guide">
-            <p class="breathing-instruction">Follow the guided breathing - the circle will show you when to inhale and exhale:</p>
-            
-            <p class="breathing-explanation">
-                <strong>How it works:</strong> Inhale for 4 seconds as the circle expands, hold for 1 second, then exhale for 6 seconds as it contracts.
-            </p>
-            
-            <div class="breath-circle" id="breathCircle" onclick="startGuidedBreathing()">
-                <span id="breathInstruction">Start Breathing</span>
-            </div>
-            
-            <p class="breath-progress" id="breathProgress">Click above to begin 3 centering breaths</p>
+        <p class="breathing-instruction">Follow the guided breathing - the circle will show you when to inhale and exhale:</p>
+        
+        <p class="breathing-explanation">
+            <strong>How it works:</strong> Inhale for 4 seconds as the circle expands, hold for 1 second, then exhale for 6 seconds as it contracts.
+        </p>
+        
+        <div class="breath-circle" id="breathCircle" onclick="startBreathing()">
+            <span id="breathText">Start Breathing</span>
         </div>
+        
+        <p class="breath-progress" id="breathProgress">Click above to begin 3 centering breaths</p>
 
         <div class="sacred-complete" id="sacredComplete">
             <p class="completion-message">Sacred space created! ✨</p>
             <p class="continue-message">Continue below to calculate your soul path</p>
+            <p style="margin: 10px 0; font-size: 0.8rem; opacity: 0.6; color: #4c3631;">OR</p>
+            <button class="restart-btn" onclick="restartBreathing()">Breathe Again</button>
         </div>
     </div>
 
     <script>
         let breathCount = 0;
         let isBreathing = false;
+        let currentTimeout;
 
-        function startGuidedBreathing() {
+        function startBreathing() {
             if (isBreathing) return;
             
             isBreathing = true;
             breathCount = 0;
             
             const circle = document.getElementById('breathCircle');
-            const instruction = document.getElementById('breathInstruction');
+            const text = document.getElementById('breathText');
             const progress = document.getElementById('breathProgress');
             
             circle.style.cursor = 'default';
             circle.onclick = null;
             
-            function doBreathe() {
-                if (breathCount >= 3) {
-                    // Breathing complete
-                    circle.classList.add('completed');
-                    instruction.textContent = 'Complete ✨';
-                    progress.textContent = 'Sacred space created!';
-                    
-                    // Show completion message
-                    setTimeout(() => {
-                        document.getElementById('sacredComplete').classList.add('visible');
-                    }, 1000);
-                    return;
-                }
+            doBreathCycle();
+        }
+
+        function doBreathCycle() {
+            if (breathCount >= 3) {
+                // Breathing complete
+                const circle = document.getElementById('breathCircle');
+                const text = document.getElementById('breathText');
+                const progress = document.getElementById('breathProgress');
                 
-                breathCount++;
-                progress.textContent = `Breath ${breathCount} of 3`;
-                
-                // Inhale phase (4 seconds)
-                circle.classList.remove('exhaling');
-                circle.classList.add('inhaling');
-                instruction.textContent = 'Inhale...';
+                circle.classList.add('completed');
+                text.textContent = 'Complete ✨';
+                progress.textContent = '';
                 
                 setTimeout(() => {
-                    // Hold phase (1 second)
-                    instruction.textContent = 'Hold...';
-                    
-                    setTimeout(() => {
-                        // Exhale phase (4 seconds)
-                        circle.classList.remove('inhaling');
-                        circle.classList.add('exhaling');
-                        instruction.textContent = 'Exhale...';
-                        
-                        setTimeout(() => {
-                            // Reset for next breath (1 second pause)
-                            circle.classList.remove('exhaling');
-                            
-                            if (breathCount < 3) {
-                                instruction.textContent = 'Ready...';
-                                setTimeout(doBreathe, 1000);
-                            } else {
-                                doBreathe(); // Complete the sequence
-                            }
-                        }, 6000); // 6 second exhale (slower)
-                    }, 1000); // 1 second hold
-                }, 4000); // 4 second inhale
+                    document.getElementById('sacredComplete').classList.add('visible');
+                }, 1000);
+                return;
             }
             
-            doBreathe();
+            breathCount++;
+            document.getElementById('breathProgress').textContent = `Breath ${breathCount} of 3`;
+            
+            // Start inhale
+            inhale();
         }
 
-        // Monitor intention input and show ready button
-        // Removed - no longer needed
-
-        function completePreparation() {
-            // Removed - no longer needed
+        function inhale() {
+            const circle = document.getElementById('breathCircle');
+            const text = document.getElementById('breathText');
+            
+            circle.classList.remove('exhaling');
+            circle.classList.add('inhaling');
+            text.textContent = 'Inhale...';
+            
+            // After 4 seconds, hold
+            currentTimeout = setTimeout(hold, 4000);
         }
 
-        // Handle Enter key in intention input
-        // Removed - no longer needed
+        function hold() {
+            const text = document.getElementById('breathText');
+            text.textContent = 'Hold...';
+            
+            // After 1 second, exhale
+            currentTimeout = setTimeout(exhale, 1000);
+        }
+
+        function exhale() {
+            const circle = document.getElementById('breathCircle');
+            const text = document.getElementById('breathText');
+            
+            circle.classList.remove('inhaling');
+            circle.classList.add('exhaling');
+            text.textContent = 'Exhale...';
+            
+            // After 6 seconds, next breath or complete
+            currentTimeout = setTimeout(() => {
+                circle.classList.remove('exhaling');
+                doBreathCycle();
+            }, 6000);
+        }
+
+        function restartBreathing() {
+            // Clear any running timeouts
+            if (currentTimeout) {
+                clearTimeout(currentTimeout);
+            }
+            
+            // Reset all states
+            breathCount = 0;
+            isBreathing = false;
+            
+            const circle = document.getElementById('breathCircle');
+            const text = document.getElementById('breathText');
+            const progress = document.getElementById('breathProgress');
+            const complete = document.getElementById('sacredComplete');
+            
+            // Reset circle
+            circle.className = 'breath-circle';
+            circle.style.cursor = 'pointer';
+            circle.onclick = startBreathing;
+            
+            // Reset text
+            text.textContent = 'Start Breathing';
+            progress.textContent = 'Click above to begin 3 centering breaths';
+            
+            // Hide completion message
+            complete.classList.remove('visible');
+        }
     </script>
 </body>
 </html>
