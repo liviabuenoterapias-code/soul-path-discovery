@@ -50,6 +50,7 @@
 
         .breathing-guide {
             margin: 40px 0;
+            padding: 20px 0;
         }
 
         .breathing-instruction {
@@ -58,12 +59,19 @@
             opacity: 0.9;
         }
 
+        .breathing-explanation {
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            opacity: 0.8;
+            line-height: 1.4;
+        }
+
         .breath-circle {
-            width: 150px;
-            height: 150px;
+            width: 120px;
+            height: 120px;
             border: 4px solid rgba(255,255,255,0.7);
             border-radius: 50%;
-            margin: 0 auto 25px;
+            margin: 60px auto 40px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -81,14 +89,14 @@
         }
 
         .breath-circle.inhaling {
-            transform: scale(1.4);
+            transform: scale(1.25);
             border-color: #8cc084;
             background: rgba(140, 192, 132, 0.2);
             box-shadow: 0 0 40px rgba(140, 192, 132, 0.4);
         }
 
         .breath-circle.exhaling {
-            transform: scale(0.8);
+            transform: scale(0.75);
             border-color: #f08d40;
             background: rgba(240, 141, 64, 0.2);
             box-shadow: 0 0 20px rgba(240, 141, 64, 0.3);
@@ -225,6 +233,10 @@
         <div class="breathing-guide">
             <p class="breathing-instruction">Follow the guided breathing - the circle will show you when to inhale and exhale:</p>
             
+            <p class="breathing-explanation">
+                <strong>How it works:</strong> Inhale for 4 seconds as the circle expands, hold for 1 second, then exhale for 6 seconds as it contracts. Let the circle guide your rhythm.
+            </p>
+            
             <div class="breath-circle" id="breathCircle" onclick="startGuidedBreathing()">
                 <span id="breathInstruction">Start Breathing</span>
             </div>
@@ -314,7 +326,7 @@
                             } else {
                                 doBreathe(); // Complete the sequence
                             }
-                        }, 4000); // 4 second exhale
+                        }, 6000); // 6 second exhale (slower)
                     }, 1000); // 1 second hold
                 }, 4000); // 4 second inhale
             }
